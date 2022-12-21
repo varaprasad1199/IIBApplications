@@ -1,0 +1,36 @@
+
+
+CREATE COMPUTE MODULE DBProject2_mf_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL DbInsert();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE DbInsert() BEGIN
+		DECLARE inRef REFERENCE TO InputRoot.XMLNSC.Employee;
+		DECLARE EID REFERENCE TO inRef.EID;
+		DECLARE ENAME REFERENCE TO inRef.ENAME;
+		DECLARE DESIGNATION REFERENCE TO inRef.DESIGNATION;
+		DECLARE ADDRESS REFERENCE TO inRef.ADDRESS;
+		INSERT INTO Database.SYSTEM.Employee(EID,ENAME,DESIGNATION,ADDRESS ) VALUES (EID,ENAME,DESIGNATION,ADDRESS);
+		IF SQLCODE=0 THEN
+			Set OutputRoot.XMLNSC.Result='Employee id ' ||EID|| ' is inserted';
+			
+		ELSE
+			Set OutputRoot.XMLNSC.Result='Employee id is not inserted';
+		END IF;
+	END;
+
+END MODULE;
