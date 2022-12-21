@@ -1,0 +1,60 @@
+
+
+CREATE COMPUTE MODULE Esql_Fun_Msg_Flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL Esql_Functions();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE Esql_Functions() BEGIN
+		-- Lenght FUNCTION
+--		DECLARE Test1 REFERENCE TO InputRoot.XMLNSC.Name;
+--		SET OutputRoot.JSON.Data.Result = LENGTH(Test1);
+
+        -- CONTAINS FUNCTION
+--        DECLARE Test2 REFERENCE TO InputRoot.XMLNSC.Name;
+--		SET OutputRoot.JSON.Data.Result = CONTAINS(Test2,'z');
+        
+        -- STARTS WITH FUNCTION
+        
+--        DECLARE Test3 REFERENCE TO InputRoot.XMLNSC.Name;
+--		SET OutputRoot.JSON.Data.Result = STARTSWITH(Test3,'z');
+
+
+         -- POSITION FUNCTION
+--          DECLARE Test4 REFERENCE TO InputRoot.XMLNSC.Name;
+--		SET OutputRoot.JSON.Data.Result = POSITION('r' IN Test4);
+--		
+		
+		-- overlay 
+--		          DECLARE Test5 REFERENCE TO InputRoot.XMLNSC.Name;
+--		SET OutputRoot.JSON.Data.Result = OVERLAY(Test5 PLACING '123' FROM 2);
+
+        --substring
+
+--        DECLARE Test6 REFERENCE TO InputRoot.XMLNSC.Name;
+--		SET OutputRoot.JSON.Data.Result = SUBSTRING(Test6 FROM 4 FOR 3 );
+		
+		-- Replace
+		
+--		 DECLARE Test7 REFERENCE TO InputRoot.XMLNSC.Name;
+--		SET OutputRoot.JSON.Data.Result = REPLACE(Test7, 'and','Vs');
+		
+		--Replica
+		
+--		 DECLARE Test8 REFERENCE TO InputRoot.XMLNSC.Name;
+--		SET OutputRoot.JSON.Data.Result = REPLICATE(Test8,3);
+--		
+
+        --Translate
+--        DECLARE Test9 REFERENCE TO InputRoot.XMLNSC.Name;
+--		SET OutputRoot.JSON.Data.Result = TRANSLATE(Test9,'ABC','*');
+--		
+		--collase
+		 DECLARE Test10 REFERENCE TO InputRoot.XMLNSC.Names;
+		SET OutputRoot.JSON.Data.Result = COALESCE(Test10,'Hey There!');
+		
+	END;
+END MODULE;
