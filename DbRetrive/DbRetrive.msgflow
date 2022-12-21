@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmDatabaseRetrieve.msgnode="ComIbmDatabaseRetrieve.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="DbRetrive.msgflow" nsPrefix="DbRetrive.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="DbRetrive" bundleName="DbRetrive" pluginId="DbRetrive"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/DbRetrive/icons/full/obj16/DbRetrive.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/DbRetrive/icons/full/obj30/DbRetrive.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmDatabaseRetrieve.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="321,122" dataSourceName="{jdbcpolicy}:jdbc" copyMessage="true" sqlQuery="SELECT CUSTOMER.ROLE, CUSTOMER.SALARY, CUSTOMER.NAME, CUSTOMER.CUSTOMERID&#xA;FROM CUSTOMER&#xA;WHERE CUSTOMER.CUSTOMERID = 564&#xA;ORDER BY CUSTOMER.ROLE ASC, CUSTOMER.SALARY ASC, CUSTOMER.NAME ASC, CUSTOMER.CUSTOMERID ASC" tableNameComboValues="1,1,1,1,1,0,0,0,0,0,0,0,0~Customer,CUSTOMER" columnNameComboValues="2,3,1,0,0,0,0,0,0,0,0,0~CUSTOMERID,NAME,ROLE,SALARY"
+          operatorComboValues="0,0,0,2,0,0,0,0,0,0,0,0~ASC" valueTypeComboValues="0,4,0,4,0,0,0,0,0,0,0~Integer" columnValueComboValues="1,2,4,3,0~CUSTOMER.ROLE">
+        <translation xmi:type="utility:ConstantString" string="Database Retrieve"/>
+        <queryElements tableName="CUSTOMER" columnName="ROLE" operator="ASC" valueType="None" value="None"/>
+        <queryElements tableName="CUSTOMER" columnName="SALARY" operator="ASC" valueType="Integer" value="25000"/>
+        <queryElements tableName="CUSTOMER" columnName="NAME" operator="ASC" valueType="None" value="None"/>
+        <queryElements tableName="CUSTOMER" columnName="CUSTOMERID" operator="=" valueType="Integer" value="564"/>
+        <queryElements tableName="CUSTOMER" columnName="CUSTOMERID" operator="ASC" valueType="None" value="None"/>
+        <dataElements columnName="CUSTOMER.CUSTOMERID" messageElement="$OutputRoot/XMLNSC/CUSTOMER/CUSTOMERID"/>
+        <dataElements columnName="CUSTOMER.NAME" messageElement="$OutputRoot/XMLNSC/CUSTOMER/NAME"/>
+        <dataElements columnName="CUSTOMER.SALARY" messageElement="$OutputRoot/XMLNSC/CUSTOMER/SALARY"/>
+        <dataElements columnName="CUSTOMER.ROLE" messageElement="$OutputRoot/XMLNSC/CUSTOMER/ROLE"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="613,63" queueName="QOUT1" destinationQueueManagerName="QMAN">
+        <translation xmi:type="utility:ConstantString" string="MQ Output"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="612,195" queueName="QOUT2" destinationQueueManagerName="QMAN">
+        <translation xmi:type="utility:ConstantString" string="MQ Output1"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="72,121" queueName="QINPUT" destinationQueueManagerName="QMAN" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="MQ Input"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.keyNotFound" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
