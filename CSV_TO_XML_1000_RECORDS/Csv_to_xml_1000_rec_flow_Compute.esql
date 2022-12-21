@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE Csv_to_xml_1000_rec_flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.XMLNSC.Result = InputRoot.DFDL;
+	END;
+END MODULE;
