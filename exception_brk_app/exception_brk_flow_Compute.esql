@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE exception_brk_flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL Exception_test();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE Exception_test()
+	BEGIN
+		
+	    SET OutputRoot = InputRoot;
+		
+	END;
+END MODULE;

@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE exception_sub_flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL Exception_test();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE Exception_test()
+	BEGIN
+		DECLARE ref REFERENCE TO InputExceptionList.*[1];
+	While LASTMOVE (ref) DO
+		IF ref.Number IS NOT NULL THEN
+	    SET OutputRoot.XMLNSC.Exception_Detials.Text = ref.Text;
+		END IF;
+		MOVE ref LASTCHILD;
+		END WHILE;
+		
+	END;
+END MODULE;
