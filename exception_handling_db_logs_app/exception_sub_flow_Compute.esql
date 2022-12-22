@@ -1,0 +1,41 @@
+
+
+CREATE COMPUTE MODULE exception_sub_flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+	DECLARE APP_NAME,MESSAGE_FLOW_NAME,ERROR_CODE,ERROR_DES CHARACTER;    
+	    SET APP_NAME = ApplicationLabel;
+	    SET MESSAGE_FLOW_NAME = MessageFlowLabel;	
+	    DECLARE TIME_LOG CHARACTER;
+		SET TIME_LOG = CURRENT_TIMESTAMP;
+		DECLARE ref REFERENCE To InputExceptionList.*[1];
+	    DECLARE Text CHARACTER;
+		DECLARE Number  INTEGER;
+		    WHILE LASTMOVE(ref) DO 
+		    	
+		    	  MOVE ref LASTCHILD;    
+		    	IF ref.Number IS NOT NULL THEN
+		    		SET Text = ref.Text;
+		    		SET Number = ref.Number;
+		    		
+		    		 SET OutputRoot.XMLNSC.Exception = Text;	
+		    		  SET OutputRoot.XMLNSC.Number = Number; 
+		    		  DECLARE var1 REFERENCE TO OutputRoot.XMLNSC.Exception; 
+		    		  DECLARE var2 REFERENCE TO OutputRoot.XMLNSC.Number;
+		    		  SET ERROR_DES = var1;
+		    		  SET ERROR_CODE = var2 ;
+		    		  END IF;
+	    END WHILE; 
+	    CALL calling_excep_proc(APP_NAME,MESSAGE_FLOW_NAME,ERROR_CODE,ERROR_DES,TIME_LOG);
+	END;
+END MODULE;
+
+CREATE PROCEDURE calling_excep_proc(IN APP_NAME CHARACTER,IN MESSAGE_FLOW_NAME CHARACTER,IN ERROR_CODE CHARACTER,IN ERROR_DES CHARACTER,IN TIME_LOG CHARACTER)
+LANGUAGE DATABASE
+EXTERNAL NAME "MY_Exception_PROC";
