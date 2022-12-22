@@ -1,0 +1,50 @@
+
+
+CREATE COMPUTE MODULE jsonarrayflow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+	      CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE inref REFERENCE TO InputRoot.JSON.Data;
+		DECLARE deal_id,party_id,employee_id,party_id_1,party_id_2,party_id_3 CHARACTER;
+		
+		SET deal_id = inref.DealID;
+		SET party_id = inref.PartyID;
+		SET employee_id = inref.EmployeeID;
+	    SET party_id_1 = SUBSTRING(party_id FROM 1 FOR 8);
+	    SET party_id_2 = SUBSTRING(party_id FROM 10 FOR 8);
+	    SET party_id_3 = SUBSTRING(party_id FROM 19 FOR 8);
+	    
+	    
+		 SET OutputRoot.JSON.Data.DeallD=deal_id;
+		 
+		 CREATE FIELD OutputRoot.JSON.Data.PartyID IDENTITY(JSON.Array);
+		 
+		 SET OutputRoot.JSON.Data.PartyID.Item[1].PartyIDLists=party_id_1;
+		 SET OutputRoot.JSON.Data.PartyID.Item[1].ApplicationToFull='1';
+		 
+         SET OutputRoot.JSON.Data.PartyID.Item[2].PartyIDLists=party_id_2;
+		 SET OutputRoot.JSON.Data.PartyID.Item[2].ApplicationToFull='2';
+		
+		 SET OutputRoot.JSON.Data.PartyID.Item[3].PartyIDLists=party_id_3;
+		 SET OutputRoot.JSON.Data.PartyID.Item[3].ApplicationToFull='3';
+		 
+		 SET OutputRoot.JSON.Data.EmpID=employee_id;
+		
+	END;
+END MODULE;

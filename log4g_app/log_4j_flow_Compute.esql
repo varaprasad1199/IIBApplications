@@ -1,0 +1,31 @@
+
+
+
+CREATE COMPUTE MODULE log_4j_flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		DECLARE VAR BOOLEAN ;
+		DECLARE rc BOOLEAN;
+		CALL writeToLogFile(MessageFlowLabel, 'SOAP_Webservice_INFO', 'INFO','request received') INTO VAR;
+		CALL writeToLogFile(MessageFlowLabel, 'Debug_Info', 'DEBUG','request received') INTO VAR;
+		CALL writeToLogFile(MessageFlowLabel, 'ERROR_info', 'ERROR','request received') INTO VAR;
+		DECLARE Blobdata BLOB ASBITSTREAM(InputRoot.XMLNSC CCSID InputRoot.Properties.CodedCharSetId ENCODING  InputRoot.Properties.Encoding);
+	    DECLARE data CHARACTER CAST(Blobdata AS CHARACTER CCSID  InputRoot.Properties.CodedCharSetId);
+	    CALL initLog4j('C:\log_4g\Log4jConfigurationFile2.xml') INTO rc;
+		
+		RETURN TRUE;
+	END;
+	END MODULE;
+	
+	
+
+CREATE FUNCTION writeToLogFile( IN COMPONENT_NAME CHARACTER,IN LOGGER_NAME CHARACTER,IN LEVEL CHARACTER,IN TEXT CHARACTER )
+	RETURNS BOOLEAN
+	LANGUAGE JAVA
+	EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+	CREATE FUNCTION initLog4j( IN CONFIG_FILE_NAME CHARACTER )
+	RETURNS BOOLEAN
+	LANGUAGE JAVA
+	EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
