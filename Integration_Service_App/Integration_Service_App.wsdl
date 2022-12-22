@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="Integration_Service_App" targetNamespace="http://Integration_Service_App" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://Integration_Service_App" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <binding hasEncoding="false" imported="true" name="Integration_Service_AppHttpBinding" originalBindingStyle="document"/>
+        <generatedXSD location="Integration_Service_App_InlineSchema1.xsd"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+  
+  <wsdl:types>
+    
+        <xsd:schema targetNamespace="http://Integration_Service_App" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions">
+      <xsd:include schemaLocation="Integration_Service_App_InlineSchema1.xsd"/>
+    </xsd:schema>
+    </wsdl:types>
+  <wsdl:message name="operation1RequestMsg">
+    <wsdl:part element="tns:operation1" name="operation1Parameters"/>
+  </wsdl:message>
+  <wsdl:message name="operation1ResponseMsg">
+    <wsdl:part element="tns:operation1Response" name="operation1Result"/>
+  </wsdl:message>
+  <wsdl:portType name="Integration_Service_App">
+    <wsdl:operation name="operation1">
+            <wsdl:input message="tns:operation1RequestMsg" name="operation1Request"/>
+            <wsdl:output message="tns:operation1ResponseMsg" name="operation1Response"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Integration_Service_AppHttpBinding" type="tns:Integration_Service_App">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="operation1">
+            <soap:operation soapAction="http://Integration_Service_App/operation1"/>
+            <wsdl:input name="operation1Request">
+                <soap:body use="literal"/>
+            </wsdl:input>
+      <wsdl:output name="operation1Response">
+                <soap:body use="literal"/>
+            </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Integration_Service_AppHttpService">
+    <wsdl:port binding="tns:Integration_Service_AppHttpBinding" name="Integration_Service_AppHttpPort">
+      <soap:address location="http://localhost:7800/Integration_Service_App"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Integration_Service_App" xmlns:tns="http://Integration_Service_App">
+      <xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="operation1">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="a" nillable="true" type="xsd:int"/>
+                <xsd:element name="b" nillable="true" type="xsd:int"/>
+            </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="operation1Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="c" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>

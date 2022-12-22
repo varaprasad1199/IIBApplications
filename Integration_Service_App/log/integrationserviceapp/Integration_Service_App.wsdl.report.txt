@@ -1,0 +1,13 @@
+
+
+Importing file: C:\Users\Sreenivas Bandaru\IBM\ACET12\workspace\Integration_Service_App\Integration_Service_App.wsdl
+
+The WSDL import will proceed with bindings Integration_Service_AppHttpBinding.
+Creating wsdl schema document for platform:/resource/Integration_Service_App/Integration_Service_App.wsdl.
+Parsing wsdl binding {http://Integration_Service_App}Integration_Service_AppHttpBinding.
+Parsing wsdl binding input operation1.
+Parsing wsdl binding output operation1.
+Processing doc style for operation operation1.
+Populating WSDL schema Integration_Service_App.xsd.
+Creating file Integration_Service_App.xsd in the workspace.
+Copying source WSDL Integration_Service_App.wsdl to Integration_Service_App.wsdl.

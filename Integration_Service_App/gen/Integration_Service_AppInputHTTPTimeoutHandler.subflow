@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="gen/Integration_Service_AppInputHTTPTimeoutHandler.subflow" nsPrefix="gen_Integration_Service_AppInputHTTPTimeoutHandler.subflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" useDefaults="true" udpSupport="true" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="Integration_Service_AppInputHTTPTimeoutHandler" bundleName="gen/Integration_Service_AppInputHTTPTimeoutHandler" pluginId="Integration_Service_App"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Integration_Service_App/icons/full/obj16/Integration_Service_AppInputHTTPTimeoutHandler"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Integration_Service_App/icons/full/obj30/Integration_Service_AppInputHTTPTimeoutHandler"/>
+    <composition>
+      <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input" location="20,20">
+        <translation xmi:type="utility:TranslatableString" key="InTerminal.Input" bundleName="gen/Integration_Service_AppInputHTTPTimeoutHandler" pluginId="Integration_Service_App"/>
+      </nodes>
+      <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.Output" location="520,20">
+        <translation xmi:type="utility:TranslatableString" key="OutTerminal.Output" bundleName="gen/Integration_Service_AppInputHTTPTimeoutHandler" pluginId="Integration_Service_App"/>
+      </nodes>
+    </composition>
+    <propertyOrganizer/>
+  </eClassifiers>
+</ecore:EPackage>
