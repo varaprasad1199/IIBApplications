@@ -1,0 +1,28 @@
+CREATE COMPUTE MODULE json_array_read_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		DECLARE i INTEGER 1;
+
+		--SET Environment.variable.json_array= InputRoot.JSON.Data;
+		DECLARE inref REFERENCE TO InputRoot.JSON.Data.users.item;
+		DECLARE X CHARACTER '';
+		CREATE FIELD OutputRoot.JSON.Data.Request IDENTITY(JSON.Array);
+		X:WHILE (LASTMOVE(inref) ) DO
+			SET OutputRoot.JSON.Data.Request.item[i] = inref.item[i];
+			SET i = i + 1;
+			MOVE inref TO NEXTSIBLING;
+			 LEAVE X;
+
+		END WHILE;
+
+
+	END;
+END MODULE;
