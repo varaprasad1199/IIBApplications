@@ -1,0 +1,14 @@
+BROKER SCHEMA com.nkp.training
+
+
+CREATE COMPUTE MODULE dummyservice1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.JSON.Data.Flight_Details.flight_name = 'Luftansa';
+		SET OutputRoot.JSON.Data.Flight_Details.flight_id = 'L12345';
+		SET OutputRoot.JSON.Data.Flight_Details.Date = '25-03-2022';
+		RETURN TRUE;
+	END;
+
+	
+END MODULE;
