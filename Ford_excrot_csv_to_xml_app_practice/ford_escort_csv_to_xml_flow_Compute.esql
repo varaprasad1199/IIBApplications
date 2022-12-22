@@ -1,0 +1,23 @@
+
+
+CREATE COMPUTE MODULE ford_escort_csv_to_xml_flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE var REFERENCE TO InputRoot.DFDL.Ford_excrot_csv_to_xml_app_practice_dfdl.record;
+
+		SET OutputRoot.XMLNSC.Result.Year = CAST(var.field1 AS INTEGER CCSID 1208);
+		SET OutputRoot.XMLNSC.Result.Mileage = CAST(var.field2 AS INTEGER CCSID 1208);
+		SET OutputRoot.XMLNSC.Result.Price = CAST(var.field3 AS INTEGER CCSID 1208);
+--		SET OutputRoot.XMLNSC.Result.Mileage = REPLACE(var.field2,'  ','');
+--		SET OutputRoot.XMLNSC.Result.Price = REPLACE(var.field3,'    ','');
+		
+		INSERT INTO Database.FORD_ESCORT(YEAR,MILEAGE,PRICE)VALUES(var.field1,var.field2,var.field3);
+	END;
+END MODULE;
