@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE subflow_exception_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE var1 REFERENCE TO InputExceptionList;
+		--SET OutputRoot = InputRoot;
+	END;
+END MODULE;
