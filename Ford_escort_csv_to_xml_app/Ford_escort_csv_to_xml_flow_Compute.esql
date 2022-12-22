@@ -1,0 +1,40 @@
+
+
+CREATE COMPUTE MODULE Ford_escort_csv_to_xml_flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE len INTEGER;
+		DECLARE i INTEGER 1;
+		DECLARE temp CHARACTER;
+		DECLARE temp1 CHARACTER;
+		DECLARE my_temp_data REFERENCE TO InputRoot.DFDL.Ford_escort_csv_to_xml_app_dfdl;
+		--SET Environment.variable.Ford_Array.item[1] = InputRoot.DFDL;
+		SET len = CARDINALITY(my_temp_data.*[]);
+		DECLARE my_db_list REFERENCE TO Environment.variable.Ford_Array;
+--		SET OutputRoot.JSON.Data.length = len;
+--		SET OutputRoot.JSON.Data.result[1] = Environment.variable.Ford_Array.item;
+		
+		WHILE (i <= len) DO
+             
+             IF i =1  THEN       
+                 SET temp = my_db_list.item.Ford_escort_csv_to_xml_app[i].record.field1;
+                  SET i = i + 1;
+            ELSE
+            	SET temp1 = my_db_list.item.Ford_escort_csv_to_xml_app[i].record.field1;
+            	 SET i = i + 1;
+             END IF;
+            END WHILE;
+            
+	END;
+END MODULE;
+CREATE PROCEDURE insert_into_db( )
+LANGUAGE DATABASE
+EXTERNAL NAME "FORD_ESCORT_PROC";

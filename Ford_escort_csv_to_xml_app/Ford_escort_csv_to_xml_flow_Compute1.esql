@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE Ford_escort_csv_to_xml_flow_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE len INTEGER;
+		SET Environment.variable.Ford_Array.item[1] = InputRoot.JSON.Data.Result;
+		SET len = CARDINALITY(Environment.variable.Ford_Array.item.Ford_escort_csv_to_xml_app.*[]);
+		SET OutputRoot.JSON.Data.length = len;
+	END;
+END MODULE;
