@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmGroupScatter.msgnode="ComIbmGroupScatter.msgnode" xmlns:ComIbmHTTPAsyncRequest.msgnode="ComIbmHTTPAsyncRequest.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="Groupingscattermf.msgflow" nsPrefix="Groupingscattermf.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="SQUARE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="Groupingscattermf" bundleName="Groupingscattermf" pluginId="Groupning_App_New"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Groupning_App_New/icons/full/obj16/Groupingscattermf.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Groupning_App_New/icons/full/obj30/Groupingscattermf.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmGroupScatter.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="200,50" GroupName="Groupnode" GroupTimeout="10.0">
+        <translation xmi:type="utility:ConstantString" string="Group Scatter"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="89,55" URLSpecifier="/groupnode1" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmHTTPAsyncRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="387,30" asyncResponseCorrelator="Account_details" URLSpecifier="http://localhost:7800/Account1" AddRequestToGroup="true" GroupRequestFolderName="Groupnode">
+        <translation xmi:type="utility:ConstantString" string="HTTP Async Request"/>
+      </nodes>
+      <nodes xmi:type="ComIbmHTTPAsyncRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="369,98" asyncResponseCorrelator="Customer_details" URLSpecifier="http://localhost:7800/Account2" AddRequestToGroup="true" GroupRequestFolderName="Groupnode">
+        <translation xmi:type="utility:ConstantString" string="HTTP Async Request1"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
