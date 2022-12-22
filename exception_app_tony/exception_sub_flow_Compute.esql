@@ -1,0 +1,56 @@
+
+
+CREATE COMPUTE MODULE exception_sub_flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 --CALL CopyEntireMessage();
+		 CALL Exception_test();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE ref REFERENCE To InputExceptionList;
+		DECLARE temp REFERENCE TO OutputRoot.XMLNSC.Result;
+	    WHILE LASTMOVE(ref) DO      
+	    	SET OutputRoot.XMLNSC.Result.Number = ref.Number;
+	    	SET OutputRoot.XMLNSC.Result.Text = ref.ParserException.Text;
+	    	SET temp = ref.ParserException.Text;  
+	  
+            MOVE ref LASTCHILD;
+	    END WHILE;
+	    SET OutputRoot.XMLNSC.Res = temp;
+		
+	END;
+	
+	CREATE PROCEDURE Exception_test()
+	BEGIN
+		DECLARE errRef ROW;
+		DECLARE inRef REFERENCE TO InputExceptionList.*[<];
+		DECLARE query CHARACTER;
+
+		WHILE ENDSWITH(FIELDNAME(inRef),'Exception') DO
+			DECLARE I INTEGER 1;
+			DECLARE J INTEGER;
+			
+			SET errRef.Number = inRef.Number;
+			SET errRef.FieldName = FIELDNAME(inRef);
+			SET errRef.Text2 = inRef.Insert[<].Text; -- it will points to last TEXT element of Insert Field
+			SET J = CARDINALITY(inRef.Insert[]);
+
+			WHILE I < J DO -- This loop is to iterate through Insert Fields
+				SET errRef.Text1 = inRef.Insert[I].Text;
+				SET I = I+1;
+			END WHILE;
+
+			SET errRef.Text = errRef.Text1 ||' '|| errRef.Text2;
+            SET OutputRoot.XMLNSC.result = errRef.Text;
+			MOVE inRef LASTCHILD;
+		END WHILE;
+
+
+
+		
+	END;
+END MODULE;
