@@ -1,0 +1,58 @@
+DECLARE ns NAMESPACE 'http://www.example.org/Homes/';
+
+
+CREATE COMPUTE MODULE Homes_Soap_MF_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE len INTEGER;
+		DECLARE repl_id,Sell,message_id,app_name,msg_flow_name,trans_status,req,res,host_req,host_res CHARACTER;
+		DECLARE req_stamp,res_stamp CHARACTER;
+	
+		DECLARE my_rply_ref REFERENCE TO InputLocalEnvironment.Destination.SOAP.Reply.ReplyIdentifier;
+		
+		SET repl_id = my_rply_ref;
+		
+		SET app_name = ApplicationLabel;
+		SET msg_flow_name = MessageFlowLabel;
+		SET req_stamp = CURRENT_TIMESTAMP;
+		SET req = CAST(ASBITSTREAM(InputRoot.SOAP.Body CCSID 1208) as CHARACTER ENCODING InputRoot.Properties.Encoding) ;
+		
+		
+		DECLARE inref REFERENCE TO InputRoot.SOAP.Body.ns:NewOperation.SELL;
+		SET Sell = inref;
+		SET message_id = CAST(repl_id AS CHARACTER);
+		
+		
+		DECLARE Qwery CHARACTER 'SELECT * FROM HOMES_DETAILS WHERE SELL=?';
+		SET host_req = Qwery;
+		
+		SET OutputRoot.SOAP.Body.ns:NewOperationResponse.RESULT = PASSTHRU(Qwery.PROJECTS_DSN VALUES(Sell));
+		
+		SET len = CARDINALITY(OutputRoot.SOAP.Body.ns:NewOperationResponse.RESULT.[]);
+		IF len = 0 THEN
+			SET OutputRoot.SOAP.Body.ns:NewOperationResponse.RESULT.res = 'No record Found with the Data you have given';
+			SET trans_status = 'SUCCESS';
+			SET res_stamp = CURRENT_TIMESTAMP;
+			SET res = 'No data matched with request'; 
+			SET host_res = 'checked Database';
+		ELSE
+			SET  OutputRoot.SOAP.Body.ns:NewOperationResponse.RESULT.res = 'Fetched data sucessfully';
+			SET trans_status = 'SUCCESS';
+			
+			SET res = CAST(ASBITSTREAM( OutputRoot.SOAP.Body.ns:NewOperationResponse.RESULT.res) AS CHARACTER CCSID 1208);
+			SET res_stamp = CURRENT_TIMESTAMP;
+			SET host_res = 'checked Database';
+		END IF;
+		CALL Homes_INPUT_PROC5
+		(message_id,app_name,msg_flow_name,req,host_req,host_res,res,trans_status,req_stamp,res_stamp); 	
+	END;
+END MODULE;
+        CREATE PROCEDURE Homes_INPUT_PROC5 (IN message_id CHARACTER,IN app_name CHARACTER,IN msg_flow_name CHARACTER,IN req CHARACTER,IN host_req CHARACTER,IN host_res CHARACTER,IN res CHARACTER,IN trans_status CHARACTER,IN req_stamp CHARACTER,IN res_stamp CHARACTER)
+			LANGUAGE DATABASE
+			EXTERNAL NAME "Homes_INPUT_PROC";  

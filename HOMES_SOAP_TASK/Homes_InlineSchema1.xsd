@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/Homes/" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/Homes/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <xsd:element ibmSchExtn:docRoot="true" name="NewOperation">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="SELL" type="xsd:string"/>
+          	<xsd:element name="LISTS" type="xsd:string"/>
+          	<xsd:element name="LIVING" type="xsd:string"/>
+          	<xsd:element name="ROOMS" type="xsd:string"/>
+          	<xsd:element name="BEDS" type="xsd:string"/>
+
+          	<xsd:element name="BATHS" type="xsd:string"/>
+          	<xsd:element name="AGE" type="xsd:string"/>
+          	<xsd:element name="ACRES" type="xsd:string"/>
+          	<xsd:element name="TAXES" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element ibmSchExtn:docRoot="true" name="NewOperationResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="RESULT" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
