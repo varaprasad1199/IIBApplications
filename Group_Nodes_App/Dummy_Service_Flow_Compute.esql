@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE Dummy_Service_Flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data.Flight_Details.Flight_Name = 'Megha';
+		SET OutputRoot.JSON.Data.Flight_Details.Flight_Id = '97846852';
+		SET OutputRoot.JSON.Data.Flight_Details.Flight_Date = '08-08-2023';
+	END;
+END MODULE;

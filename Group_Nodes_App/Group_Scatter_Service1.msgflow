@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmGroupScatter.msgnode="ComIbmGroupScatter.msgnode" xmlns:ComIbmHTTPAsyncRequest.msgnode="ComIbmHTTPAsyncRequest.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="Group_Scatter_Service1.msgflow" nsPrefix="Group_Scatter_Service1.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="Group_Scatter_Service1" bundleName="Group_Scatter_Service1" pluginId="Group_Nodes_App"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Group_Nodes_App/icons/full/obj16/Group_Scatter_Service1.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Group_Nodes_App/icons/full/obj30/Group_Scatter_Service1.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="42,123" URLSpecifier="/Group_Node_Check" messageDomainProperty="JSON">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmGroupScatter.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="282,122" GroupName="Flights_Cabs" GroupTimeout="5.0">
+        <translation xmi:type="utility:ConstantString" string="Group Scatter"/>
+      </nodes>
+      <nodes xmi:type="ComIbmHTTPAsyncRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="584,-5" asyncResponseCorrelator="Flight_Request" URLSpecifier="http://localhost:7800/dummyservice1" AddRequestToGroup="true" GroupRequestFolderName="Flights_Cabs">
+        <translation xmi:type="utility:ConstantString" string="HTTP Async Request"/>
+      </nodes>
+      <nodes xmi:type="ComIbmHTTPAsyncRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="580,186" asyncResponseCorrelator="Cab_Request" URLSpecifier="http://localhost:7800/dummyservice2" AddRequestToGroup="true" GroupRequestFolderName="Flights_Cabs">
+        <translation xmi:type="utility:ConstantString" string="HTTP Async Request1"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
