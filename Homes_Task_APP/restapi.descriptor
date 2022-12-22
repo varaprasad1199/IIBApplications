@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:restapiDescriptor xmlns="http://com.ibm.etools.mft.descriptor.base" xmlns:ns2="http://com.ibm.etools.mft.descriptor.restapi" definitionType="swagger_20" definitionFile="swagger.json" implementation="gen/Homes_Task_APP.msgflow" https="false" definitionWithExtRef="false" faultFormat="JSON">
+    <ns2:operations>
+        <ns2:operation name="getBEDS" implementation="getBEDS.subflow"/>
+        <ns2:operation name="getLISTS" implementation="getLISTS.subflow"/>
+        <ns2:operation name="getLIVING" implementation="getLIVING.subflow"/>
+        <ns2:operation name="getROOMS" implementation="getROOMS.subflow"/>
+        <ns2:operation name="getSelldetails" implementation="getSelldetails.subflow"/>
+    </ns2:operations>
+    <ns2:errorHandlers>
+        <ns2:errorHandler type="CATCH" implementation="Homes_Task_APPInputCatchHandler.subflow"/>
+        <ns2:errorHandler type="FAILURE" implementation="Homes_Task_APPInputFailureHandler.subflow"/>
+        <ns2:errorHandler type="TIMEOUT" implementation="Homes_Task_APPInputTimeoutHandler.subflow"/>
+    </ns2:errorHandlers>
+</ns2:restapiDescriptor>

@@ -1,0 +1,51 @@
+
+
+CREATE COMPUTE MODULE getROOMS_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE len INTEGER;
+		DECLARE repl_id,message_id,app_name,msg_flow_name,trans_status,req,res,host_req,host_res,Request CHARACTER;
+		DECLARE req_stamp,res_stamp CHARACTER;
+	
+		DECLARE my_rply_ref REFERENCE TO InputLocalEnvironment.HTTP.Input.QueryString;
+		SET repl_id = CAST(InputLocalEnvironment.Destination.HTTP.RequestIdentifier AS CHARACTER);
+		SET message_id = repl_id;
+		SET Request = my_rply_ref.ROOMS;
+		SET app_name = ApplicationLabel;
+		SET msg_flow_name = MessageFlowLabel;
+		SET req_stamp = CURRENT_TIMESTAMP;
+		SET req ='ROOMS='||Request;
+		
+		DECLARE Qwery CHARACTER 'SELECT * FROM HOMES_DETAILS WHERE ROOMS = ?';
+		SET host_req = Qwery;
+		
+		SET OutputRoot.JSON.Data.RESULT = PASSTHRU(Qwery.PROJECTS_DSN VALUES(Request));
+		
+		SET len = CARDINALITY(OutputRoot.JSON.Data.RESULT[]);
+		IF len = 0 THEN
+			SET OutputRoot.JSON.Data.RESULT = 'No record Found with the Data you have given';
+			SET trans_status = 'SUCCESS';
+			SET res_stamp = CURRENT_TIMESTAMP;
+			SET res = 'No data matched with request'; 
+			SET host_res = 'checked Database';
+		ELSE
+			SET  OutputRoot.JSON.Data.RESULT1= 'Fetched data sucessfully';
+			SET trans_status = 'SUCCESS';
+			
+			SET res = OutputRoot.JSON.Data.RESULT1;
+			SET res_stamp = CURRENT_TIMESTAMP;
+			SET host_res = 'checked Database';
+		END IF;
+		CALL Homes_INPUT_PROC4(message_id,app_name,msg_flow_name,req,host_req,host_res,res,trans_status,req_stamp,res_stamp); 	
+	END;
+END MODULE;
+       CREATE PROCEDURE Homes_INPUT_PROC4 (IN message_id CHARACTER,IN app_name CHARACTER,IN msg_flow_name CHARACTER,IN req CHARACTER,IN host_req CHARACTER,IN host_res CHARACTER,IN res CHARACTER,IN trans_status CHARACTER,IN req_stamp CHARACTER,IN res_stamp CHARACTER)
+			LANGUAGE DATABASE
+			EXTERNAL NAME "Homes_INPUT_PROC";
+
+    

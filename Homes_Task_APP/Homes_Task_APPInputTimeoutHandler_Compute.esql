@@ -1,0 +1,47 @@
+
+
+CREATE COMPUTE MODULE Homes_Task_APPInputTimeoutHandler_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+	     CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE ref REFERENCE TO InputExceptionList.*[1];
+		DECLARE temp,app_name,msg_flow_name,except_det,bip_num,time_stamp CHARACTER;
+		SET temp = ref.RecoverableException.RecoverableException.Number;
+		SET app_name = ApplicationLabel;
+		SET msg_flow_name = MessageFlowLabel;
+		SET time_stamp = CURRENT_TIMESTAMP;
+		SET bip_num = ref.Number;
+		
+        IF  temp IS NOT NULL THEN
+			While LASTMOVE (ref) DO
+		IF ref.Number  IS NOT NULL THEN
+			
+	       SET OutputRoot.JSON.Data.RESULT = ref.Text;
+	       SET except_det = ref.Text;
+	    
+		END IF;
+		MOVE ref LASTCHILD;
+		END WHILE;
+		ELSE
+			While LASTMOVE (ref) DO
+		IF ref.Text  IS NOT NULL THEN
+			SET OutputRoot.JSON.Data.RESULT = ref.Text;
+	        SET except_det = ref.Text;
+		END IF;
+		MOVE ref LASTCHILD;
+		END WHILE;
+		END IF;
+		
+		CALL HOMES_EXCEPTION_DB_LOGS_PROC2(app_name,msg_flow_name,except_det,bip_num,time_stamp);
+		
+	END;
+END MODULE;
+
+CREATE PROCEDURE HOMES_EXCEPTION_DB_LOGS_PROC2 (IN app_name CHARACTER,IN msg_flow_name CHARACTER,IN except_det CHARACTER,IN bip_num CHARACTER,IN time_stamp CHARACTER)
+			LANGUAGE DATABASE
+			EXTERNAL NAME "HOMES_EXCEPTION_DB_LOGS_PROC";

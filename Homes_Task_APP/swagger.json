@@ -1,0 +1,121 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Homes_Task_APP",
+    "version" : "1.0.0",
+    "description" : "Homes_Task_APP"
+  },
+  "paths" : {
+    "/selldetails" : {
+      "get" : {
+        "operationId" : "getSelldetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/OUTPUT"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve selldetails",
+        "parameters" : [ {
+          "name" : "SELL",
+          "in" : "query",
+          "type" : "integer"
+        } ]
+      }
+    },
+    "/LISTS" : {
+      "get" : {
+        "operationId" : "getLISTS",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/OUTPUT"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve LISTS",
+        "parameters" : [ {
+          "name" : "LISTS",
+          "in" : "query",
+          "type" : "string"
+        } ]
+      }
+    },
+    "/LIVING" : {
+      "get" : {
+        "operationId" : "getLIVING",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/OUTPUT"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve LIVING",
+        "parameters" : [ {
+          "name" : "LIVING",
+          "in" : "query",
+          "type" : "string"
+        } ]
+      }
+    },
+    "/ROOMS" : {
+      "get" : {
+        "operationId" : "getROOMS",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/OUTPUT"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve ROOMS",
+        "parameters" : [ {
+          "name" : "ROOMS",
+          "in" : "query",
+          "type" : "string"
+        } ]
+      }
+    },
+    "/BEDS" : {
+      "get" : {
+        "operationId" : "getBEDS",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/OUTPUT"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve BEDS",
+        "parameters" : [ {
+          "name" : "BEDS",
+          "in" : "header",
+          "type" : "string"
+        } ]
+      }
+    }
+  },
+  "basePath" : "/homes_task_app/v1",
+  "definitions" : {
+    "OUTPUT" : {
+      "type" : "object",
+      "properties" : {
+        "RESULT" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
